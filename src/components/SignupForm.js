@@ -64,7 +64,14 @@ const SignupForm = ({ handleFlip }) => {
     e.preventDefault();
     setSignupSpinner(true);
     try {
-      const userObject = { firstname, lastname, username, password, email };
+      const userObject = {
+        photo,
+        firstname,
+        lastname,
+        username,
+        password,
+        email,
+      };
       const data = await signup(userObject);
       setSignupSpinner(false);
       if (data.success) {

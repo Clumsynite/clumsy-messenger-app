@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Avatar from "react-avatar";
 import { InlineIcon } from "@iconify/react";
 import logoutIcon from "@iconify-icons/carbon/logout";
+import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
 import store from "../store";
@@ -14,7 +15,7 @@ const SidebarOptions = () => {
   const { addToast } = useToasts();
 
   const { user } = store.getState();
-  const { username, firstname, lastname } = user;
+  const { photo, username, firstname, lastname } = user;
 
   const [spinner, setSpinner] = useState(false);
 
@@ -22,7 +23,8 @@ const SidebarOptions = () => {
     e.preventDefault();
     try {
       setSpinner(true);
-      const data = await logout();
+      const data = await logout(localStorage.token);
+      setSpinner(false);
       if (data.success) {
         addToast(data.msg, { appearance: "success" });
         localStorage.clear();
@@ -40,13 +42,22 @@ const SidebarOptions = () => {
 
   return (
     <div className="Options">
-      <Avatar
-        name={`${firstname} ${lastname}`}
-        size={50}
-        alt={`${username}'s Avatar`}
-        round={true}
-        className="Options__pic"
-      />
+      {!_.startsWith(photo, "data:image") ? (
+        <Avatar
+          name={`${firstname} ${lastname}`}
+          size={50}
+          alt={`${username}'s Avatar`}
+          round={true}
+          className="Options__pic"
+        />
+      ) : (
+        <img
+          src={photo}
+          alt="PFP"
+          className="profile-picture"
+          style={{ height: "50px", width: "50px" }}
+        />
+      )}
       <div className="Options__user-details">
         <div className="Options__user-logged">Logged in AS</div>
         <div

@@ -42,10 +42,14 @@ export const login = async (user) => {
   }
 };
 
-export const logout = async () => {
+export const logout = async (token) => {
   try {
     const response = await fetch(`${url}/auth/logout`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
       credentials: "include",
     });
     const data = await response.json();
