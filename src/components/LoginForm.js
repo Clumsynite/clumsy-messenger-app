@@ -23,7 +23,6 @@ const LoginForm = ({ handleFlip }) => {
         (contact) => contact.username !== username
       );
       setLoginSpinner(false);
-      console.log(data)
       if (data.success) {
         clearForm();
         addToast(data.msg, { appearance: "success" });

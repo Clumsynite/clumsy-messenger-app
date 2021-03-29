@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastProvider } from "react-toast-notifications";
 import _ from "lodash";
 
 import store from "../store";
 import { refreshUserList } from "../actions";
-import { allUsers } from "../api";
+import { allUsers, connectedUsers } from "../api";
 
 import UserForm from "./UserForm";
 import Sidebar from "./Sidebar";
@@ -14,8 +14,26 @@ import "./App.css";
 
 const App = () => {
   const { authenticated, userList } = store.getState();
+  const [numberOnline, setNumberOnline] = useState(0);
+  const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
+    console.log("EFFECT");
+    const getConnectedUsers = async () => {
+      try {
+        const connected = await connectedUsers();
+        const { users } = connected;
+        setNumberOnline(users.length);
+        // setTimestamp(Date.now())
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getConnectedUsers();
+  }, [timestamp]);
+
+  useEffect(() => {
+    console.log("GET USERS");
     const getAllUsers = async () => {
       try {
         const data = await allUsers();
@@ -34,8 +52,8 @@ const App = () => {
       }
     };
     getAllUsers();
-    console.log("AAAA")
-  }, [authenticated]);
+    console.log("AAAA");
+  }, [numberOnline]);
 
   return (
     <div className="App">

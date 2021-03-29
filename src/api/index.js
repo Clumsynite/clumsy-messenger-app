@@ -73,3 +73,11 @@ export const allUsers = async () => {
   }
 };
 
+export const connectedUsers = async () => {
+  try {
+    const response = await fetch(`${url}/utils/users-connected`);
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
