@@ -18,22 +18,25 @@ const App = () => {
   const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
-    console.log("EFFECT");
+    let secTimer = setInterval(() => {
+      setTimestamp(Date().toLocaleString());
+    }, 1000);
+
     const getConnectedUsers = async () => {
       try {
         const connected = await connectedUsers();
         const { users } = connected;
-        setNumberOnline(users.length);
-        // setTimestamp(Date.now())
+        if (numberOnline !== users.length) setNumberOnline(users.length);
       } catch (error) {
         console.error(error);
       }
     };
-    getConnectedUsers();
+    if (localStorage.token) getConnectedUsers();
+    return () => clearInterval(secTimer);
+    // eslint-disable-next-line
   }, [timestamp]);
 
   useEffect(() => {
-    console.log("GET USERS");
     const getAllUsers = async () => {
       try {
         const data = await allUsers();
@@ -52,7 +55,6 @@ const App = () => {
       }
     };
     getAllUsers();
-    console.log("AAAA");
   }, [numberOnline]);
 
   return (
