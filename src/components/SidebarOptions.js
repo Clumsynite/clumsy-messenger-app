@@ -23,7 +23,6 @@ const SidebarOptions = () => {
     try {
       setSpinner(true);
       const data = await logout();
-      console.log("LOGOUT DATA", data)
       if (data.success) {
         addToast(data.msg, { appearance: "success" });
         localStorage.clear();

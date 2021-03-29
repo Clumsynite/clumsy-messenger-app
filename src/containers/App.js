@@ -32,6 +32,7 @@ const App = () => {
       }
     };
     if (localStorage.token) getConnectedUsers();
+    else clearInterval(secTimer);
     return () => clearInterval(secTimer);
     // eslint-disable-next-line
   }, [timestamp]);

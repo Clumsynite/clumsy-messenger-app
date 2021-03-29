@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import Avatar from "react-avatar";
+import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
 import { usernameExists, signup } from "../api";
 
 const SignupForm = ({ handleFlip }) => {
+  const [photo, setPhoto] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
@@ -13,6 +16,16 @@ const SignupForm = ({ handleFlip }) => {
   const [signupSpinner, setSignupSpinner] = useState(false);
 
   const { addToast } = useToasts();
+
+  const convertToBase64 = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function () {
+      const result = reader.result;
+      if (_.startsWith(result, "data:image")) setPhoto(result);
+    };
+  };
 
   const handleUsername = async (e) => {
     const newUsername = e.target.value;
@@ -46,6 +59,7 @@ const SignupForm = ({ handleFlip }) => {
       e.target.className = "form-control";
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSignupSpinner(true);
@@ -68,6 +82,7 @@ const SignupForm = ({ handleFlip }) => {
   };
 
   const clearForm = () => {
+    setPhoto("");
     setFirstname("");
     setLastname("");
     setUsername("");
@@ -85,6 +100,34 @@ const SignupForm = ({ handleFlip }) => {
       className="shadow rounded bg-light mx-auto text-center p-4 w-75"
       onSubmit={handleSubmit}
     >
+      <div className="row g-2">
+        <div className="col-md-4">
+          {!_.startsWith(photo, "data:image") ? (
+            <Avatar
+              name={`User Name`}
+              size={60}
+              alt={`${username}'s Avatar`}
+              round={true}
+            />
+          ) : (
+            <img src={photo} alt="PFP" className="profile-picture" />
+          )}
+        </div>
+        <div className="col-md-8">
+          <div className="mb-3 text-start">
+            <label htmlFor="formFile" className="form-label">
+              Select your Profile Picture (Optional)
+            </label>
+            <input
+              className="form-control"
+              type="file"
+              id="formFile"
+              onChange={convertToBase64}
+              accept="image/*"
+            />
+          </div>
+        </div>
+      </div>
       <div className="row g-2">
         <div className="col-md">
           <div className="form-floating mb-2">
