@@ -23,7 +23,8 @@ const LoginForm = ({ handleFlip }) => {
         (contact) => contact.username !== username
       );
       setLoginSpinner(false);
-      if (data.msg) {
+      console.log(data)
+      if (data.success) {
         clearForm();
         addToast(data.msg, { appearance: "success" });
         localStorage.user = JSON.stringify(data.user);
@@ -31,9 +32,9 @@ const LoginForm = ({ handleFlip }) => {
         store.dispatch(setAuthenticated());
         store.dispatch(refreshUserList([...allContacts]));
         store.dispatch(setUser());
-      } else if (data.err) {
-        console.error(data.err);
-        addToast(data.err, { appearance: "error" });
+      } else {
+        console.error(data.error);
+        addToast(data.error, { appearance: "error" });
       }
     } catch (error) {
       setLoginSpinner(false);

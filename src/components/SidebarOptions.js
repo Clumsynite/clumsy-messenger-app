@@ -23,15 +23,15 @@ const SidebarOptions = () => {
     try {
       setSpinner(true);
       const data = await logout();
-      if (data.msg) {
+      console.log("LOGOUT DATA", data)
+      if (data.success) {
         addToast(data.msg, { appearance: "success" });
-        console.log("Connected? ", user.connected);
         localStorage.clear();
         store.dispatch(setAuthenticated());
         store.dispatch(setUser());
-      } else if (data.err) {
-        console.error(data.err);
-        addToast(data.err, { appearance: "error" });
+      } else {
+        console.error(data.error);
+        addToast(data.error, { appearance: "error" });
       }
     } catch (error) {
       setSpinner(false);

@@ -44,7 +44,7 @@ export const login = async (user) => {
 
 export const logout = async () => {
   try {
-    const response = await fetch(`${url}/user/logout`, {
+    const response = await fetch(`${url}/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

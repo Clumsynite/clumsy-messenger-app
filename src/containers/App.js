@@ -34,6 +34,7 @@ const App = () => {
       }
     };
     getAllUsers();
+    console.log("AAAA")
   }, [authenticated]);
 
   return (

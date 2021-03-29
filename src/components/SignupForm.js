@@ -53,13 +53,13 @@ const SignupForm = ({ handleFlip }) => {
       const userObject = { firstname, lastname, username, password, email };
       const data = await signup(userObject);
       setSignupSpinner(false);
-      if (data.msg) {
+      if (data.success) {
         clearForm();
         addToast(data.msg, { appearance: "success" });
         handleFlip(e);
-      } else if (data.err) {
-        console.error(data.err);
-        addToast(data.err, { appearance: "error" });
+      } else {
+        console.error(data.error);
+        addToast(data.error, { appearance: "error" });
       }
     } catch (error) {
       setSignupSpinner(false);
