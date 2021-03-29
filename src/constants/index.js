@@ -1,0 +1,3 @@
+export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
+export const REFRESH_USERLIST = "REFRESH_USERLIST";
+export const SET_USER = "SET_USER";

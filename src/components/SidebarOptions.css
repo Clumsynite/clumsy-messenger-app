@@ -1,0 +1,30 @@
+.Options {
+  height: 70px;
+  background-color: #005353;
+  position: absolute;
+  bottom: 0;
+  padding: 0 10px;
+  width: 300px;
+  border-right: 1px solid #c9ffff;
+  transition: width 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.Options__user-details {
+  color: #d7ffff;
+  display: flex;
+  flex-direction: column;
+}
+.Options__user-username {
+  color: cyan;
+}
+@media (max-width: 576px) {
+  .Options {
+    width: 90px;
+  }
+  .Options__user-details,
+  .Options__pic {
+    display: none;
+  }
+}

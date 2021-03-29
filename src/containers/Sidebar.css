@@ -1,0 +1,19 @@
+.Sidebar {
+  width: 300px;
+  background-color: #d7ffff;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-right: 1px solid #c9ffff;
+  transition: width 0.3s;
+}
+
+.Sidebar::-webkit-scrollbar {
+  width: 0px;
+}
+
+@media (max-width: 576px) {
+  .Sidebar {
+    width: 90px;
+  }
+}

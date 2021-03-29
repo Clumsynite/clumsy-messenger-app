@@ -1,0 +1,14 @@
+.login-form {
+  width: 30vw;
+}
+
+@media screen and (max-width: 1110px) {
+  .login-form {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .login-form {
+    width: 100%;
+  }
+}
