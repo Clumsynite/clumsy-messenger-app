@@ -10,7 +10,7 @@ import { logout } from "../api";
 
 import "./SidebarOptions.css";
 
-const SidebarOptions = ({ socket }) => {
+const SidebarOptions = () => {
   const { addToast } = useToasts();
 
   const { user } = store.getState();
@@ -26,7 +26,6 @@ const SidebarOptions = ({ socket }) => {
       if (data.msg) {
         addToast(data.msg, { appearance: "success" });
         console.log("Connected? ", user.connected);
-        socket.emit("disconnect_user", user);
         localStorage.clear();
         store.dispatch(setAuthenticated());
         store.dispatch(setUser());

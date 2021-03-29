@@ -4,6 +4,6 @@ import App from "./containers/App";
 
 import store from "./store";
 
-const render = () => ReactDOM.render(<App />, document.getElementById("app"));
+const render = () => ReactDOM.render(<App />, document.getElementById("root"));
 store.subscribe(render);
 render();

@@ -11,7 +11,7 @@ export const ping = async () => {
 
 export const signup = async (user) => {
   try {
-    const response = await fetch(`${url}/user/signup`, {
+    const response = await fetch(`${url}/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const signup = async (user) => {
 
 export const login = async (user) => {
   try {
-    const response = await fetch(`${url}/user/login`, {
+    const response = await fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export const logout = async () => {
 
 export const usernameExists = async (username) => {
   try {
-    const response = await fetch(`${url}/misc/username-exists/${username}`);
+    const response = await fetch(`${url}/utils/username-check/${username}`);
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -66,21 +66,10 @@ export const usernameExists = async (username) => {
 
 export const allUsers = async () => {
   try {
-    const response = await fetch(`${url}/misc/all-users`);
+    const response = await fetch(`${url}/users`);
     return await response.json();
   } catch (error) {
     console.error(error);
   }
 };
 
-export const connect = async (userId) => {
-  try {
-    const response = await fetch(`${url}/socket/connect/${userId}`, {
-      method: "POST",
-      credentials: "include",
-    });
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-  }
-};
