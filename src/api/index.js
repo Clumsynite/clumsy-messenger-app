@@ -11,7 +11,7 @@ export const ping = async () => {
 
 export const signup = async (user) => {
   try {
-    const response = await fetch(`${url}/user`, {
+    const response = await fetch(`${url}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export const logout = async () => {
 
 export const usernameExists = async (username) => {
   try {
-    const response = await fetch(`${url}/utils/username-check/${username}`);
+    const response = await fetch(`${url}/utils/check-username/${username}`);
     return await response.json();
   } catch (error) {
     console.error(error);
