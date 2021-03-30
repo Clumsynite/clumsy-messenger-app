@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import "./ProfilePicture.css";
 
-const ProfilePicture = ({ user, size }) => {
+const ProfilePicture = ({ user, size, className }) => {
   const { photo, firstname, lastname, username } = user;
   return (
     <>
@@ -13,14 +13,16 @@ const ProfilePicture = ({ user, size }) => {
           name={`${firstname} ${lastname}`}
           size={size}
           alt={`${username}'s Avatar`}
+          className={`${className} `}
           round={true}
         />
       ) : (
         <img
           src={photo}
           alt="PFP"
-          className="profile-picture"
+          className={`profile-picture ${className} `}
           style={{ height: size, width: size }}
+          title={`${firstname} ${lastname}`}
         />
       )}
     </>

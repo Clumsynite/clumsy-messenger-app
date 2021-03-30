@@ -25,7 +25,7 @@ const SidebarOptions = () => {
 
   const [spinner, setSpinner] = useState(false);
 
-  const OptionsMenu = () => {
+  const OptionsMenu = ({className}) => {
     const menuRef = useRef(null);
     const [menuVisible, setMenuVisible] = useState(false);
     const [editProfileOpen, setEditProfileOpen] = useState(false);
@@ -51,8 +51,12 @@ const SidebarOptions = () => {
             showCloseButton
             enterAnimation={"slideUp"}
             leaveAnimation={"fade"}
-            width={700}
-            height={400}
+            customStyles={{
+              backgroundColor: "transparent",
+              padding: 0,
+              height: "70vh",
+              width: "80vw",
+            }}
           >
             <UpdateForm update />
           </Rodal>
@@ -107,7 +111,7 @@ const SidebarOptions = () => {
 
   return (
     <div className="Options">
-      <ProfilePicture user={user} size={50} />
+      <ProfilePicture user={user} size={50} className={"Options__pic"}/>
       <OptionsMenu />
       <div className="Options__user-details">
         <div className="Options__user-logged">Logged in as</div>
@@ -121,9 +125,9 @@ const SidebarOptions = () => {
       <button
         type="button"
         title="Logout Button"
-        className={`btn btn-lg ${
+        className={`btn ${
           !spinner ? "bg-danger text-light" : "bg-light"
-        }`}
+        } logout-button`}
         onClick={handleLogout}
         disabled={spinner}
       >

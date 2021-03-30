@@ -93,7 +93,6 @@ const SignupForm = ({ handleFlip, update }) => {
       setSignupSpinner(false);
       if (data.success) {
         if (update) {
-          console.log(data);
           localStorage.user = JSON.stringify(data.user);
           store.dispatch(setUser());
         } else {

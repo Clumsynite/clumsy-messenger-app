@@ -8,26 +8,26 @@
   position: absolute;
   top: 60px;
   right: 0;
-  width: 280px;
+  width: 220px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-200px) translateX(-180px);
+  transform: translateY(-200px) translateX(-140px);
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-  -webkit-transform: translateY(-200px) translateX(-180px);
-  -moz-transform: translateY(-200px) translateX(-180px);
-  -ms-transform: translateY(-200px) translateX(-180px);
-  -o-transform: translateY(-200px) translateX(-180px);
+  -webkit-transform: translateY(-200px) translateX(-140px);
+  -moz-transform: translateY(-200px) translateX(-140px);
+  -ms-transform: translateY(-200px) translateX(-140px);
+  -o-transform: translateY(-200px) translateX(-140px);
 }
 
 .menu.visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(-220px) translateX(180px);
-  -webkit-transform: translateY(-220px) translateX(180px);
-  -moz-transform: translateY(-220px) translateX(180px);
-  -ms-transform: translateY(-220px) translateX(180px);
-  -o-transform: translateY(-220px) translateX(180px);
+  transform: translateY(-220px) translateX(140px);
+  -webkit-transform: translateY(-220px) translateX(140px);
+  -moz-transform: translateY(-220px) translateX(140px);
+  -ms-transform: translateY(-220px) translateX(140px);
+  -o-transform: translateY(-220px) translateX(140px);
 }
 
 .menu ul {
@@ -48,4 +48,10 @@
   font-weight: lighter;
   display: block;
   cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .menu {
+    width: 180px;
+  }
 }
