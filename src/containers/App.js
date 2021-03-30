@@ -15,26 +15,23 @@ import "./App.css";
 const App = () => {
   const { authenticated, userList } = store.getState();
   const [numberOnline, setNumberOnline] = useState(0);
-  const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
-    let secTimer = setInterval(() => {
-      setTimestamp(Date().toLocaleString());
+    setInterval(() => {
+      const getConnectedUsers = async () => {
+        try {
+          const connected = await connectedUsers();
+          const { users } = connected;
+          if (numberOnline !== users.length && users.length > 0) setNumberOnline(users.length);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      if (localStorage.token) getConnectedUsers();
     }, 1000);
 
-    const getConnectedUsers = async () => {
-      try {
-        const connected = await connectedUsers();
-        const { users } = connected;
-        if (numberOnline !== users.length) setNumberOnline(users.length);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (localStorage.token) getConnectedUsers();
-    return () => clearInterval(secTimer);
     // eslint-disable-next-line
-  }, [timestamp]);
+  });
 
   useEffect(() => {
     const getOtherUsers = async () => {
