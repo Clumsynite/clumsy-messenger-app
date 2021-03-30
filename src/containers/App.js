@@ -13,7 +13,7 @@ import Main from "./Main";
 import "./App.css";
 
 const App = () => {
-  const { authenticated, userList } = store.getState();
+  const { authenticated, userList, user, activeUserId } = store.getState();
   const [numberOnline, setNumberOnline] = useState(0);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const App = () => {
       <ToastProvider autoDismiss>
         {!authenticated && <UserForm />}
         {authenticated && <Sidebar users={userList} />}
-        {authenticated && <Main />}
+        {authenticated && <Main user={user} activeUserId={activeUserId} />}
       </ToastProvider>
     </div>
   );
