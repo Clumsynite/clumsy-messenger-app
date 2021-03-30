@@ -7,13 +7,18 @@ import ProfilePicture from "./ProfilePicture";
 import "./UserCard.css";
 
 const UserCard = ({ user }) => {
+  const { activeUserId } = store.getState();
   const { username, firstname, lastname, connected, _id } = user;
   return (
     <div
       className="User"
       title={`${username} is ${connected ? "Online" : "Offline"}`}
       onClick={() => {
-        store.dispatch(setActiveUserId(_id));
+        if (activeUserId != _id) {
+          store.dispatch(setActiveUserId(_id));
+        } else {
+          store.dispatch(setActiveUserId(null));
+        }
       }}
     >
       <div style={{ position: "relative" }}>
