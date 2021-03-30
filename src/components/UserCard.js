@@ -1,15 +1,20 @@
 import React from "react";
 
-import ProfilePicture from "./ProfilePicture";
+import store from "../store";
+import { setActiveUserId } from "../actions";
 
+import ProfilePicture from "./ProfilePicture";
 import "./UserCard.css";
 
 const UserCard = ({ user }) => {
-  const { username, firstname, lastname, connected } = user;
+  const { username, firstname, lastname, connected, _id } = user;
   return (
     <div
       className="User"
       title={`${username} is ${connected ? "Online" : "Offline"}`}
+      onClick={() => {
+        store.dispatch(setActiveUserId(_id));
+      }}
     >
       <div style={{ position: "relative" }}>
         <ProfilePicture user={user} size={60} />

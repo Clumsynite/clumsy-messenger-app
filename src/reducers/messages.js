@@ -1,4 +1,4 @@
-import _ from "lodash";
+// import _ from "lodash";
 // import { getMessages } from "../static-data";
 import { SEND_MESSAGE } from "../constants";
 
