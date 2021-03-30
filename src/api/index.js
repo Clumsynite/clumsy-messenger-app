@@ -25,6 +25,22 @@ export const signup = async (user) => {
   }
 };
 
+export const update = async (user) => {
+  try {
+    const response = await fetch(`${url}/users`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(user),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const login = async (user) => {
   try {
     const response = await fetch(`${url}/auth/login`, {

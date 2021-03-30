@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
-import { usernameExists, signup } from "../api";
+import { usernameExists, signup, update } from "../api";
 import ProfilePicture from "./ProfilePicture";
 
-const SignupForm = ({ handleFlip }) => {
+const SignupForm = ({ handleFlip, update }) => {
   const [photo, setPhoto] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -72,7 +72,7 @@ const SignupForm = ({ handleFlip }) => {
         password,
         email,
       };
-      const data = await signup(userObject);
+      const data = update ? await update(userObject) : await signup(userObject);
       setSignupSpinner(false);
       if (data.success) {
         clearForm();
@@ -101,6 +101,12 @@ const SignupForm = ({ handleFlip }) => {
       .querySelector("#new__password-confirm")
       .classList.remove("is-valid");
   };
+
+  useEffect(() => {
+    if (update) {
+      setPassword("");
+    }
+  }, [update]);
 
   return (
     <form
@@ -163,55 +169,59 @@ const SignupForm = ({ handleFlip }) => {
           </div>
         </div>
       </div>
-      <div className="form-floating mb-2">
-        <input
-          required
-          type="text"
-          className="form-control"
-          id="new__username"
-          placeholder="clumsyknight"
-          minLength="5"
-          value={username}
-          onChange={handleUsername}
-        />
-        <label htmlFor="new__username">Username</label>
-        <div className="valid-feedback">Username is available</div>
-        <div className="invalid-feedback">Username is not available</div>
-      </div>
-      <div className="row g-2">
-        <div className="col-md">
-          <div className="form-floating mb-3">
-            <input
-              required
-              type="password"
-              className="form-control"
-              id="new__password"
-              placeholder="Password"
-              minLength="5"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <label htmlFor="new__password">Password</label>
+      {!update && (
+        <div className="form-floating mb-2">
+          <input
+            required
+            type="text"
+            className="form-control"
+            id="new__username"
+            placeholder="clumsyknight"
+            minLength="5"
+            value={username}
+            onChange={handleUsername}
+          />
+          <label htmlFor="new__username">Username</label>
+          <div className="valid-feedback">Username is available</div>
+          <div className="invalid-feedback">Username is not available</div>
+        </div>
+      )}
+      {!update && (
+        <div className="row g-2">
+          <div className="col-md">
+            <div className="form-floating mb-3">
+              <input
+                required
+                type="password"
+                className="form-control"
+                id="new__password"
+                placeholder="Password"
+                minLength="5"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label htmlFor="new__password">Password</label>
+            </div>
+          </div>
+          <div className="col-md">
+            <div className="form-floating mb-3">
+              <input
+                required
+                type="password"
+                className="form-control"
+                id="new__password-confirm"
+                placeholder="Confirm Password"
+                minLength="5"
+                value={confirmPassword}
+                onChange={handlePasswordConfirmation}
+              />
+              <label htmlFor="new__password-confirm">Confirm Password</label>
+              <div className="valid-feedback">Passwords matched</div>
+              <div className="invalid-feedback">Passwords don't match</div>
+            </div>
           </div>
         </div>
-        <div className="col-md">
-          <div className="form-floating mb-3">
-            <input
-              required
-              type="password"
-              className="form-control"
-              id="new__password-confirm"
-              placeholder="Confirm Password"
-              minLength="5"
-              value={confirmPassword}
-              onChange={handlePasswordConfirmation}
-            />
-            <label htmlFor="new__password-confirm">Confirm Password</label>
-            <div className="valid-feedback">Passwords matched</div>
-            <div className="invalid-feedback">Passwords don't match</div>
-          </div>
-        </div>
-      </div>
+      )}
       <div className="form-floating mb-2">
         <input
           required
@@ -229,14 +239,17 @@ const SignupForm = ({ handleFlip }) => {
         className="btn btn-outline-success w-100 btn-lg"
         disabled={signupSpinner}
       >
-        {!signupSpinner && "Create New Account"}
+        {!signupSpinner &&
+          `${update ? "Update your Account" : "Create New Account"}`}
         {signupSpinner && (
           <div
             className="spinner-border text-success spinner-border-sm"
             role="status"
             style={{ width: 24, height: 24 }}
           >
-            <span className="visually-hidden">Creating New account...</span>
+            <span className="visually-hidden">
+              {update ? "Updating your Account" : "Creating New account"}...
+            </span>
           </div>
         )}
       </button>
