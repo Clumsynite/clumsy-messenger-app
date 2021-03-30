@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Avatar from "react-avatar";
 import { InlineIcon } from "@iconify/react";
 import logoutIcon from "@iconify-icons/carbon/logout";
-import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
 import store from "../store";
 import { setAuthenticated, setUser } from "../actions";
 import { logout } from "../api";
+
+import ProfilePicture from "./ProfilePicture";
 
 import "./SidebarOptions.css";
 
@@ -15,7 +15,7 @@ const SidebarOptions = () => {
   const { addToast } = useToasts();
 
   const { user } = store.getState();
-  const { photo, username, firstname, lastname } = user;
+  const { username, firstname, lastname } = user;
 
   const [spinner, setSpinner] = useState(false);
 
@@ -42,22 +42,7 @@ const SidebarOptions = () => {
 
   return (
     <div className="Options">
-      {!_.startsWith(photo, "data:image") ? (
-        <Avatar
-          name={`${firstname} ${lastname}`}
-          size={50}
-          alt={`${username}'s Avatar`}
-          round={true}
-          className="Options__pic"
-        />
-      ) : (
-        <img
-          src={photo}
-          alt="PFP"
-          className="profile-picture"
-          style={{ height: "50px", width: "50px" }}
-        />
-      )}
+      <ProfilePicture user={user} size={50} />
       <div className="Options__user-details">
         <div className="Options__user-logged">Logged in AS</div>
         <div

@@ -1,27 +1,18 @@
 import React from "react";
-import Avatar from "react-avatar";
-import _ from "lodash";
+
+import ProfilePicture from "./ProfilePicture";
 
 import "./UserCard.css";
 
 const UserCard = ({ user }) => {
-  const { photo, username, firstname, lastname, connected } = user;
+  const { username, firstname, lastname, connected } = user;
   return (
     <div
       className="User"
       title={`${username} is ${connected ? "Online" : "Offline"}`}
     >
       <div style={{ position: "relative" }}>
-        {!_.startsWith(photo, "data:image") ? (
-          <Avatar
-            name={`${firstname} ${lastname}`}
-            size={60}
-            alt={`${username}'s Avatar`}
-            round={true}
-          />
-        ) : (
-          <img src={photo} alt="PFP" className="profile-picture" />
-        )}
+        <ProfilePicture user={user} size={60} />
         <span className={`${connected ? "online" : "offline"}`}></span>
       </div>
       <div className="User__details">

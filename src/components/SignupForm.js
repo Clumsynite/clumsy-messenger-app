@@ -4,6 +4,7 @@ import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
 import { usernameExists, signup } from "../api";
+import ProfilePicture from "./ProfilePicture";
 
 const SignupForm = ({ handleFlip }) => {
   const [photo, setPhoto] = useState("");
@@ -109,16 +110,10 @@ const SignupForm = ({ handleFlip }) => {
     >
       <div className="row g-2">
         <div className="col-md-4">
-          {!_.startsWith(photo, "data:image") ? (
-            <Avatar
-              name={`User Name`}
-              size={60}
-              alt={`${username}'s Avatar`}
-              round={true}
-            />
-          ) : (
-            <img src={photo} alt="PFP" className="profile-picture" />
-          )}
+          <ProfilePicture
+            size={60}
+            user={{ username, photo, firstname, lastname }}
+          />
         </div>
         <div className="col-md-8">
           <div className="mb-3 text-start">
