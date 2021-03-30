@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ToastProvider } from "react-toast-notifications";
+import _ from "lodash";
 
 import store from "../store";
 import { refreshUserList } from "../actions";
@@ -40,7 +41,8 @@ const App = () => {
       try {
         const data = await otherUsers();
         const { users } = data;
-        return store.dispatch(refreshUserList(users));
+        const sortedUsers = _.orderBy(users, ["con"], ["desc"]);
+        return store.dispatch(refreshUserList(sortedUsers));
       } catch (error) {
         console.error(error);
       }
