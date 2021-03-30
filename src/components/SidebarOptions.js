@@ -44,7 +44,7 @@ const SidebarOptions = () => {
     <div className="Options">
       <ProfilePicture user={user} size={50} />
       <div className="Options__user-details">
-        <div className="Options__user-logged">Logged in AS</div>
+        <div className="Options__user-logged">Logged in as</div>
         <div
           className="Options__user-username"
           title={`${firstname} ${lastname}`}

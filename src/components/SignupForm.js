@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Avatar from "react-avatar";
 import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
