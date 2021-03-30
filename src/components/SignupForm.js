@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
-import { usernameExists, signup, update } from "../api";
+import store from "../store";
+import { setUser } from "../actions";
+
+import { usernameExists, signup, updateProfile } from "../api";
 import ProfilePicture from "./ProfilePicture";
 
 const SignupForm = ({ handleFlip, update }) => {
@@ -16,6 +19,18 @@ const SignupForm = ({ handleFlip, update }) => {
   const [signupSpinner, setSignupSpinner] = useState(false);
 
   const { addToast } = useToasts();
+
+  useEffect(() => {
+    if (update) {
+      const { firstname, lastname, photo, email } = JSON.parse(
+        localStorage.user
+      );
+      setFirstname(firstname);
+      setLastname(lastname);
+      setPhoto(photo);
+      setEmail(email);
+    }
+  }, [update]);
 
   const convertToBase64 = (e) => {
     const file = e.target.files[0];
@@ -72,12 +87,20 @@ const SignupForm = ({ handleFlip, update }) => {
         password,
         email,
       };
-      const data = update ? await update(userObject) : await signup(userObject);
+      const data = update
+        ? await updateProfile({ photo, firstname, lastname, email })
+        : await signup(userObject);
       setSignupSpinner(false);
       if (data.success) {
-        clearForm();
+        if (update) {
+          console.log(data);
+          localStorage.user = JSON.stringify(data.user);
+          store.dispatch(setUser());
+        } else {
+          clearForm();
+          handleFlip(e);
+        }
         addToast(data.msg, { appearance: "success" });
-        handleFlip(e);
       } else {
         console.error(data.error);
         addToast(data.error, { appearance: "error" });
@@ -101,12 +124,6 @@ const SignupForm = ({ handleFlip, update }) => {
       .querySelector("#new__password-confirm")
       .classList.remove("is-valid");
   };
-
-  useEffect(() => {
-    if (update) {
-      setPassword("");
-    }
-  }, [update]);
 
   return (
     <form
@@ -254,13 +271,15 @@ const SignupForm = ({ handleFlip, update }) => {
         )}
       </button>
       <hr />
-      <button
-        className="btn btn-primary btn-lg w-75"
-        type="button"
-        onClick={handleFlip}
-      >
-        Login
-      </button>
+      {!update && (
+        <button
+          className="btn btn-primary btn-lg w-75"
+          type="button"
+          onClick={handleFlip}
+        >
+          Login
+        </button>
+      )}
     </form>
   );
 };

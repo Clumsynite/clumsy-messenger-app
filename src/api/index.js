@@ -25,7 +25,7 @@ export const signup = async (user) => {
   }
 };
 
-export const update = async (user) => {
+export const updateProfile = async (user) => {
   try {
     const response = await fetch(`${url}/users`, {
       method: "PUT",

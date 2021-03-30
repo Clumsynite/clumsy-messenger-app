@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { InlineIcon } from "@iconify/react";
 import logoutIcon from "@iconify-icons/carbon/logout";
 import { useToasts } from "react-toast-notifications";
-import { Icon } from "@iconify/react";
-import overflowMenuVertical from "@iconify-icons/carbon/overflow-menu-vertical";
 import { Divide as Hamburger } from "hamburger-react";
+
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
 
 import store from "../store";
 import { setAuthenticated, setUser } from "../actions";
 import { logout } from "../api";
 
 import ProfilePicture from "./ProfilePicture";
+import UpdateForm from "./SignupForm";
 
 import "./SidebarOptions.css";
 import "./PopupMenu.css";
@@ -26,6 +28,7 @@ const SidebarOptions = () => {
   const OptionsMenu = () => {
     const menuRef = useRef(null);
     const [menuVisible, setMenuVisible] = useState(false);
+    const [editProfileOpen, setEditProfileOpen] = useState(false);
 
     const onClick = () => {
       setMenuVisible(!menuVisible);
@@ -33,7 +36,6 @@ const SidebarOptions = () => {
 
     return (
       <div className="menu-container">
-        {/* <Icon icon={overflowMenuVertical} width={30} height={30} color="#fff" /> */}
         <Hamburger
           toggled={menuVisible}
           toggle={onClick}
@@ -41,14 +43,34 @@ const SidebarOptions = () => {
           size={20}
           color={`${menuVisible ? "skyblue" : "#fff"}`}
         />
-
+        {editProfileOpen && (
+          <Rodal
+            visible={editProfileOpen}
+            onClose={() => setEditProfileOpen(false)}
+            closeOnEsc
+            showCloseButton
+            enterAnimation={"slideUp"}
+            leaveAnimation={"fade"}
+            width={700}
+            height={400}
+          >
+            <UpdateForm update />
+          </Rodal>
+        )}
         <nav
           ref={menuRef}
           className={`menu ${menuVisible ? "visible" : "hidden"} `}
         >
           <ul>
             <li>
-              <div>Edit User Profile </div>
+              <div
+                onClick={() => {
+                  setEditProfileOpen(true);
+                  setMenuVisible(false);
+                }}
+              >
+                Edit User Profile
+              </div>
             </li>
             <li>
               <div>Change Password</div>
