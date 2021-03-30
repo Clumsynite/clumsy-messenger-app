@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ToastProvider } from "react-toast-notifications";
-import _ from "lodash";
 
 import store from "../store";
 import { refreshUserList } from "../actions";
-import { allUsers, connectedUsers } from "../api";
+import { otherUsers, connectedUsers } from "../api";
 
 import UserForm from "./UserForm";
 import Sidebar from "./Sidebar";
@@ -37,24 +36,16 @@ const App = () => {
   }, [timestamp]);
 
   useEffect(() => {
-    const getAllUsers = async () => {
+    const getOtherUsers = async () => {
       try {
-        const data = await allUsers();
-        const contacts = data === undefined ? [] : data.users;
-        const username = _.get(
-          JSON.parse(localStorage.user || "{}"),
-          "username"
-        );
-        const allContacts = _.filter(
-          contacts,
-          (contact) => contact.username !== username
-        );
-        return store.dispatch(refreshUserList(allContacts));
+        const data = await otherUsers();
+        const { users } = data;
+        return store.dispatch(refreshUserList(users));
       } catch (error) {
         console.error(error);
       }
     };
-    getAllUsers();
+    getOtherUsers();
   }, [numberOnline]);
 
   return (

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
-import _ from "lodash";
-import { login, allUsers } from "../api";
+import { login } from "../api";
 import store from "../store";
-import { setAuthenticated, refreshUserList, setUser } from "../actions";
+import { setAuthenticated, setUser } from "../actions";
 
 const LoginForm = ({ handleFlip }) => {
   const [username, setUsername] = useState("");
@@ -17,11 +16,6 @@ const LoginForm = ({ handleFlip }) => {
     try {
       setLoginSpinner(true);
       const data = await login({ username, password });
-      const contacts = await allUsers();
-      const allContacts = _.filter(
-        contacts.users,
-        (contact) => contact.username !== username
-      );
       setLoginSpinner(false);
       if (data.success) {
         clearForm();
@@ -29,7 +23,6 @@ const LoginForm = ({ handleFlip }) => {
         localStorage.user = JSON.stringify(data.user);
         localStorage.token = data.token;
         store.dispatch(setAuthenticated());
-        store.dispatch(refreshUserList([...allContacts]));
         store.dispatch(setUser());
       } else {
         console.error(data.error);

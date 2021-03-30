@@ -79,7 +79,20 @@ export const allUsers = async () => {
 
 export const connectedUsers = async () => {
   try {
-    const response = await fetch(`${url}/utils/users-connected`);
+    const response = await fetch(`${url}/utils/users-connected`, {
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const otherUsers = async () => {
+  try {
+    const response = await fetch(`${url}/utils/users-other`, {
+      credentials: "include",
+    });
     return await response.json();
   } catch (error) {
     console.error(error);
