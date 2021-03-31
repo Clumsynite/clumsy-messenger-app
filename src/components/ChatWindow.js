@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import _ from "lodash";
 
 import Header from "./Header";
@@ -9,8 +9,8 @@ import store from "../store";
 import "./ChatWindow.css";
 
 const ChatWindow = ({ activeUserId }) => {
-  const state = store.getState();  
-  const {userList, typing} = state
+  const state = store.getState();
+  const { userList, typing } = state;
   const activeUser = _.filter(userList, (user) => user._id === activeUserId)[0];
   // const activeMsgs = useMemo(() => state.messages[activeUserId], [
   //   state,

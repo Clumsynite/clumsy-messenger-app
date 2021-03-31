@@ -14,7 +14,7 @@ const UserCard = ({ user }) => {
       className="User"
       title={`${username} is ${connected ? "Online" : "Offline"}`}
       onClick={() => {
-        if (activeUserId != _id) {
+        if (activeUserId !== _id) {
           store.dispatch(setActiveUserId(_id));
         } else {
           store.dispatch(setActiveUserId(null));
