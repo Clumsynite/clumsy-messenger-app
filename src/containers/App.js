@@ -37,7 +37,6 @@ const App = () => {
       try {
         const data = await otherUsers();
         const { users } = data;
-        console.log(data);
         const sortedUsers = _.orderBy(users, ["con"], ["desc"]);
         return store.dispatch(refreshUserList(sortedUsers));
       } catch (error) {

@@ -5,17 +5,20 @@ An almost real time messaging app. Built without sockets.
 
 ## Screenshots
 
-### Overview
-![Overview of the overall App](./screenshots/overview.gif)
+### Connection
+![Connection Between users](./screenshots/connection.gif)
 
 ### Signup Form
 ![Signup Form](./screenshots/signupForm.gif)
 
+### Overview
+![Overview of the overall App](./screenshots/overview.gif)
+
 ### Edit Profile
 ![Update profile form](./screenshots/updateProfile.gif)
 
-### Connection
-![Connection Between users](./screenshots/connection.gif)
+### User's Last Seen
+![Last Seen](./screenshots/lastSeen.gif)
 
 <br>
 
