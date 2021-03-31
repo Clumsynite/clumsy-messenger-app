@@ -8,7 +8,7 @@ const Empty = ({ user }) => {
   return (
     <div className="Empty">
       <h1 className="Empty__name">Welcome, {firstname}</h1>
-      <ProfilePicture user={user} size={150} />
+      <ProfilePicture user={user} className={"Empty__img"} />
 
       <button className="Empty__btn">Start a Conversation</button>
       <p className="Empty__info">

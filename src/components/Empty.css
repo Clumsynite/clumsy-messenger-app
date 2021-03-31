@@ -12,10 +12,6 @@
 .Empty__info {
   padding: 1rem;
 }
-.Empty__img {
-  border-radius: 50%;
-  margin: 1rem 0;
-}
 .Empty__btn {
   padding: 1rem;
   margin: 1rem 0;
@@ -24,8 +20,36 @@
   border-radius: 30px;
   border: 1px solid black;
   outline: 0;
+  transition: 0.5s ease-in-out;
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -ms-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
 }
 .Empty__btn:hover {
   background: rgba(255, 255, 255, 0.7);
   cursor: pointer;
+}
+
+.Empty__img {
+  height: 150px;
+  width: 150px;
+}
+@media (max-width: 576px) {
+  .Empty__btn {
+    padding: 0.5rem;
+    margin: 0.8rem 0;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  .Empty__info {
+    font-size: small;
+  }
+  .Empty__name {
+    font-size: xx-large;
+  }
+  .Empty__img {
+    height: 80px;
+    width: 80px;
+  }
 }

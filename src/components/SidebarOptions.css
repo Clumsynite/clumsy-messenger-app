@@ -6,7 +6,11 @@
   padding: 0 10px;
   width: 300px;
   border-right: 1px solid #c9ffff;
-  transition: width 0.3s;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: space-around;
