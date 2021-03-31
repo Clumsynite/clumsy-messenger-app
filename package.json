@@ -18,6 +18,7 @@
     "react-avatar": "^3.10.0",
     "react-card-flip": "^1.1.0",
     "react-dom": "^17.0.2",
+    "react-image-crop": "^8.6.6",
     "react-scripts": "4.0.3",
     "react-toast-notifications": "^2.4.3",
     "redux": "^4.0.5",

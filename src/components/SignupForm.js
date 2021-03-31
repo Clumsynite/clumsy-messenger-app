@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import _ from "lodash";
 import { useToasts } from "react-toast-notifications";
 
 import store from "../store";
 import { setUser } from "../actions";
 
 import { usernameExists, signup, updateProfile } from "../api";
-import ProfilePicture from "./ProfilePicture";
+import PhotoUpload from "./PhotoUpload";
 
 const SignupForm = ({ handleFlip, update }) => {
   const [photo, setPhoto] = useState("");
@@ -31,16 +30,6 @@ const SignupForm = ({ handleFlip, update }) => {
       setEmail(email);
     }
   }, [update]);
-
-  const convertToBase64 = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = function () {
-      const result = reader.result;
-      if (_.startsWith(result, "data:image")) setPhoto(result);
-    };
-  };
 
   const handleUsername = async (e) => {
     const newUsername = e.target.value;
@@ -131,28 +120,10 @@ const SignupForm = ({ handleFlip, update }) => {
       className="shadow rounded bg-light mx-auto text-center p-4 w-75"
       onSubmit={handleSubmit}
     >
-      <div className="row g-2">
-        <div className="col-md-4">
-          <ProfilePicture
-            size={60}
-            user={{ username, photo, firstname, lastname }}
-          />
-        </div>
-        <div className="col-md-8">
-          <div className="mb-3 text-start">
-            <label htmlFor="formFile" className="form-label">
-              Select your Profile Picture (Optional)
-            </label>
-            <input
-              className="form-control"
-              type="file"
-              id="formFile"
-              onChange={convertToBase64}
-              accept="image/*"
-            />
-          </div>
-        </div>
-      </div>
+      <PhotoUpload
+        user={{ username, photo, firstname, lastname }}
+        setPhoto={setPhoto}
+      />
       <div className="row g-2">
         <div className="col-md">
           <div className="form-floating mb-2">
