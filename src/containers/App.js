@@ -22,14 +22,13 @@ const App = () => {
         try {
           const data = await connectedUsers();
           const { connected } = data;
-          if (numberOnline !== connected && connected > 0) setNumberOnline(connected);
+          if (numberOnline !== connected) setNumberOnline(connected);
         } catch (error) {
           console.error(error);
         }
       };
       if (localStorage.token) getConnectedUsers();
-    }, 1850);
-
+    }, 1250);
     // eslint-disable-next-line
   });
 
@@ -38,13 +37,14 @@ const App = () => {
       try {
         const data = await otherUsers();
         const { users } = data;
+        console.log(data);
         const sortedUsers = _.orderBy(users, ["con"], ["desc"]);
         return store.dispatch(refreshUserList(sortedUsers));
       } catch (error) {
         console.error(error);
       }
     };
-    getOtherUsers();
+    if (localStorage.token) getOtherUsers();
   }, [numberOnline]);
 
   return (

@@ -92,7 +92,7 @@ const SidebarOptions = () => {
     e.preventDefault();
     try {
       setSpinner(true);
-      const data = await logout(localStorage.token);
+      const data = await logout();
       setSpinner(false);
       if (data.success) {
         addToast(data.msg, { appearance: "success" });

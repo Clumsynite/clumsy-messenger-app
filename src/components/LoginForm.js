@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
-import { login } from "../api";
+import { login, otherUsers } from "../api";
 import store from "../store";
-import { setAuthenticated, setUser } from "../actions";
+import { setAuthenticated, setUser, refreshUserList } from "../actions";
+import _ from "lodash";
 
 const LoginForm = ({ handleFlip }) => {
   const [username, setUsername] = useState("");
@@ -16,14 +17,18 @@ const LoginForm = ({ handleFlip }) => {
     try {
       setLoginSpinner(true);
       const data = await login({ username, password });
+      const contacts = await otherUsers();
       setLoginSpinner(false);
       if (data.success) {
         clearForm();
+        const { users } = contacts;
+        const sortedUsers = _.orderBy(users, ["con"], ["desc"]);
         addToast(data.msg, { appearance: "success" });
         localStorage.user = JSON.stringify(data.user);
         localStorage.token = data.token;
         store.dispatch(setAuthenticated());
         store.dispatch(setUser());
+        store.dispatch(refreshUserList(sortedUsers));
       } else if (data.message && data.name) {
         addToast(data.message, { appearance: "error" });
       } else if (!data.success) {
