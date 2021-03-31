@@ -100,8 +100,10 @@ const SignupForm = ({ handleFlip, update }) => {
           handleFlip(e);
         }
         addToast(data.msg, { appearance: "success" });
-      } else {
-        console.error(data.error);
+      } else if (data.message && data.name) {
+        addToast(data.message, { appearance: "error" });
+      } else if (!data.success) {
+        console.error(data.message);
         addToast(data.error, { appearance: "error" });
       }
     } catch (error) {

@@ -25,7 +25,7 @@ const SidebarOptions = () => {
 
   const [spinner, setSpinner] = useState(false);
 
-  const OptionsMenu = ({className}) => {
+  const OptionsMenu = ({ className }) => {
     const menuRef = useRef(null);
     const [menuVisible, setMenuVisible] = useState(false);
     const [editProfileOpen, setEditProfileOpen] = useState(false);
@@ -99,8 +99,10 @@ const SidebarOptions = () => {
         localStorage.clear();
         store.dispatch(setAuthenticated());
         store.dispatch(setUser());
-      } else {
-        console.error(data.error);
+      } else if (data.message && data.name) {
+        addToast(data.message, { appearance: "error" });
+      } else if (!data.success) {
+        console.error(data.message);
         addToast(data.error, { appearance: "error" });
       }
     } catch (error) {
@@ -111,7 +113,7 @@ const SidebarOptions = () => {
 
   return (
     <div className="Options">
-      <ProfilePicture user={user} size={50} className={"Options__pic"}/>
+      <ProfilePicture user={user} size={50} className={"Options__pic"} />
       <OptionsMenu />
       <div className="Options__user-details">
         <div className="Options__user-logged">Logged in as</div>

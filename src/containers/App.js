@@ -20,15 +20,15 @@ const App = () => {
     setInterval(() => {
       const getConnectedUsers = async () => {
         try {
-          const connected = await connectedUsers();
-          const { users } = connected;
-          if (numberOnline !== users.length && users.length > 0) setNumberOnline(users.length);
+          const data = await connectedUsers();
+          const { connected } = data;
+          if (numberOnline !== connected && connected > 0) setNumberOnline(connected);
         } catch (error) {
           console.error(error);
         }
       };
       if (localStorage.token) getConnectedUsers();
-    }, 1000);
+    }, 1850);
 
     // eslint-disable-next-line
   });

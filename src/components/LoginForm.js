@@ -24,13 +24,15 @@ const LoginForm = ({ handleFlip }) => {
         localStorage.token = data.token;
         store.dispatch(setAuthenticated());
         store.dispatch(setUser());
-      } else {
-        console.error(data.error);
+      } else if (data.message && data.name) {
+        addToast(data.message, { appearance: "error" });
+      } else if (!data.success) {
+        console.error(data.message);
         addToast(data.error, { appearance: "error" });
       }
     } catch (error) {
       setLoginSpinner(false);
-      console.error(error);
+      console.error("Caught Error", error.message);
     }
   };
 
