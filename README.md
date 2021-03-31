@@ -6,17 +6,27 @@ An almost real time messaging app. Built without sockets.
 ## Screenshots
 
 ### Overview
-
 ![Overview of the overall App](./screenshots/overview.gif)
 
 ### Signup Form
-
 ![Signup Form](./screenshots/signupForm.gif)
 
 ### Edit Profile
-
 ![Update profile form](./screenshots/updateProfile.gif)
 
+### Connection
+![Connection Between users](./screenshots/connection.gif)
+
+<br>
+
+<details>
+  <summary>Why does it say Converse - A Realtime Messaging App </summary>
+  
+  `Converse was the name previously decided for the app that's why the app name in the above screenshots is Converse`
+  
+</details>
+
+<br>
 
 ## React Template text
 ### Available Scripts
