@@ -1,9 +1,11 @@
-export const url = "http://localhost:5000";
+// Test
+const url = "http://localhost:5000";
+// Deploy
+// const url = "https://clumsy-messenger.herokuapp.com/";
 
 export const ping = async () => {
   try {
-    const response = await fetch(`${url}`);
-    return await response.json();
+    return await fetch(`${url}`);
   } catch (error) {
     console.error(error);
   }

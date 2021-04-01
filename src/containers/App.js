@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ToastProvider } from "react-toast-notifications";
+import { useToasts } from "react-toast-notifications";
 import _ from "lodash";
 
 import store from "../store";
 import { refreshUserList } from "../actions";
-import { otherUsers, connectedUsers } from "../api";
+import { ping, otherUsers, connectedUsers } from "../api";
 
 import UserForm from "./UserForm";
 import Sidebar from "./Sidebar";
@@ -15,8 +15,36 @@ import "./App.css";
 const App = () => {
   const { authenticated, userList, user, activeUserId } = store.getState();
   const [numberOnline, setNumberOnline] = useState(0);
+  const { addToast } = useToasts();
 
   useEffect(() => {
+    // Wake up Heroku server
+    let retry;
+    const wakeupServer = async () => {
+      try {
+        const data = await ping();
+        if (data?.status === 200) {
+          addToast("Connected to Server", { appearance: "success" });
+          clearTimeout(retry);
+          console.clear();
+        } else {
+          retry = setTimeout(wakeupServer, 2000);
+          addToast("Heroku's still asleep. Retrying....", {
+            appearance: "error",
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (!localStorage.token && !localStorage.user) wakeupServer();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    // Check if a user connects or disconnects every 1.25 seconds
+    // if true refreshContacts
+    // But only if current user is logged in
     setInterval(() => {
       const getConnectedUsers = async () => {
         try {
@@ -48,11 +76,9 @@ const App = () => {
 
   return (
     <div className="App">
-      <ToastProvider autoDismiss>
-        {!authenticated && <UserForm />}
-        {authenticated && <Sidebar users={userList} />}
-        {authenticated && <Main user={user} activeUserId={activeUserId} />}
-      </ToastProvider>
+      {!authenticated && <UserForm />}
+      {authenticated && <Sidebar users={userList} />}
+      {authenticated && <Main user={user} activeUserId={activeUserId} />}
     </div>
   );
 };
