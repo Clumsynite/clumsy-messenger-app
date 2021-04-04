@@ -82,7 +82,9 @@ const App = () => {
     <div className="App">
       {!authenticated && <UserForm />}
       {authenticated && <Sidebar users={userList} />}
-      {authenticated && <Main user={user} activeUserId={activeUserId} />}
+      {authenticated && (
+        <Main user={user} activeUserId={activeUserId} userList={userList} />
+      )}
     </div>
   );
 };

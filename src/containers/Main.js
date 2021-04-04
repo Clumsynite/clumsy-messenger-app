@@ -5,9 +5,9 @@ import ChatWindow from "../components/ChatWindow";
 
 import "./Main.css";
 
-const Main = ({ user, activeUserId }) => {
+const Main = ({ user, activeUserId, userList }) => {
   const renderMainContent = () => {
-    if (!activeUserId) {
+    if (!activeUserId || userList.length === 0) {
       return <Empty user={user} activeUserId={activeUserId} />;
     } else {
       return <ChatWindow activeUserId={activeUserId} />;
