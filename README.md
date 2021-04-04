@@ -1,31 +1,30 @@
 # Clumsy Messenger
 
-An almost real time messaging app. Built without sockets.
+A real-time messaging app. Built with sockets.
 
 
 ## Screenshots
 
-### Connection
-![Connection Between users](./screenshots/connection.gif)
+### Overview
+![Overview](./screenshots/overview.gif)
 
 ### Signup Form
 ![Signup Form](./screenshots/signupForm.gif)
 
-### Overview
-![Overview of the overall App](./screenshots/overview.gif)
-
 ### Edit Profile
 ![Update profile form](./screenshots/updateProfile.gif)
 
-### User's Last Seen
-![Last Seen](./screenshots/lastSeen.gif)
+### Crop Image before Uploading
+![Crop Image](./screenshots/cropImage.gif)
+
+
 
 <br>
 
 <details>
   <summary>Why does it say Converse - A Realtime Messaging App </summary>
   
-  `Converse was the name previously decided for the app that's why the app name in the above screenshots is Converse`
+  Converse was the name previously decided for the app that's why the app name in the above screenshots is Converse.
   
 </details>
 
