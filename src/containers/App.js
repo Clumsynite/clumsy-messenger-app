@@ -36,6 +36,20 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    const getOtherUsers = async () => {
+      try {
+        const data = await otherUsers();
+        const { users } = data;
+        const sortedUsers = _.orderBy(users, ["con"], ["desc"]);
+        return store.dispatch(refreshUserList(sortedUsers));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (localStorage.token) getOtherUsers();
+  }, []);
+
+  useEffect(() => {
     // Wake up Heroku server
     let retry;
     const wakeupServer = async () => {
