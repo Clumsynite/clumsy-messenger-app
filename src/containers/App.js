@@ -20,6 +20,11 @@ const App = () => {
   const { addToast } = useToasts();
 
   useEffect(() => {
+    socket.emit("connect user", user._id);
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     socket.on("refreshUsers", () => {
       const getOtherUsers = async () => {
         try {
