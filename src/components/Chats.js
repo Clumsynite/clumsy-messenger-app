@@ -1,10 +1,21 @@
 import React, { useRef, useEffect } from "react";
+import moment from "moment";
 import "./Chats.css";
 
-const Chat = ({ message }) => {
-  const { text, is_user_msg } = message;
+const Chat = ({ chat }) => {
+  const { message, is_user_msg, created } = chat;
   return (
-    <span className={`Chat ${is_user_msg ? "is-user-msg" : ""}`}>{text}</span>
+    <>
+      <span
+        className="time-stamp"
+        style={{ marginLeft: is_user_msg ? "auto" : null }}
+      >
+        {moment(created).fromNow()}
+      </span>
+      <span className={`Chat ${is_user_msg ? "is-user-msg" : ""}`}>
+        {message}
+      </span>
+    </>
   );
 };
 
@@ -17,9 +28,13 @@ const Chats = ({ messages }) => {
   }, [messages]);
 
   return (
-    <div className="Chats" ref={chatsRef}>
+    <div
+      className="Chats"
+      ref={chatsRef}
+      onClick={() => console.log("MESSAGES", messages)}
+    >
       {messages.map((message) => (
-        <Chat message={message} key={message.number} />
+        <Chat chat={message} key={message._id} />
       ))}
     </div>
   );

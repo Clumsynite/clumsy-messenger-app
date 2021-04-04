@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import _ from "lodash";
 
 import Header from "./Header";
@@ -9,11 +9,14 @@ import store from "../store";
 import "./ChatWindow.css";
 
 import { readMessages } from "../api";
-import { setMessages } from "../actions";
+// import { setMessages } from "../actions";
+// import user from "../reducers/messages";
 
 const ChatWindow = ({ activeUserId }) => {
   const state = store.getState();
-  const { userList, typing, messages } = state;
+  const { userList, typing, user } = state;
+  const [messages, setMessages] = useState([]);
+
   const activeUser = _.filter(userList, (user) => user._id === activeUserId)[0];
   useEffect(() => {
     const getMessages = async () => {
@@ -21,21 +24,21 @@ const ChatWindow = ({ activeUserId }) => {
         const data = await readMessages();
         const messageList = _.filter(
           data.messages,
-          (obj) => obj.from === activeUserId || obj.to === activeUserId
+          (obj) => obj.from === activeUser._id || obj.to === activeUser._id
+        );
+        messageList.map(
+          (message) => (message.is_user_msg = message.from === user._id)
         );
         if (messages.length !== messageList) setMessages(messageList);
       } catch (error) {
         console.error(error);
       }
     };
-
     getMessages();
-  }, [messages]);
-  // const activeMsgs = useMemo(() => state.messages[activeUserId], [
-  //   state,
-  //   activeUserId,
-  // ]);
-  // const activeMessages = useMemo(() => _.values(activeMsgs), [activeMsgs]);
+
+    return setMessages([]);
+    // eslint-disable-next-line
+  }, [activeUserId]);
 
   return (
     <div className="ChatWindow">

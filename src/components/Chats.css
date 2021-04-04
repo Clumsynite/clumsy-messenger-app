@@ -11,7 +11,7 @@
   width: 0px;
 }
 .Chat {
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
   color: #fff;
   padding: 1rem;
   background: linear-gradient(90deg, #1986d8, #7b9cc2);
@@ -27,6 +27,12 @@
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
+.time-stamp {
+  font-size: smaller;
+  color: #262626;
+  padding: 1em 0 2px 0;
+}
+
 @media (min-width: 576px) {
   .Chat {
     max-width: 60%;
