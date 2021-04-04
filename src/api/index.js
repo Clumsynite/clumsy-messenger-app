@@ -1,7 +1,7 @@
 // Test
 const url = "http://localhost:5000";
 // Deploy
-// const url = "https://clumsy-messenger.herokuapp.com/";
+// const url = "https://clumsy-messenger.herokuapp.com";
 
 export const ping = async () => {
   try {
@@ -105,6 +105,33 @@ export const connectedUsers = async () => {
 export const otherUsers = async () => {
   try {
     const response = await fetch(`${url}/utils/users-other`, {
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const newMessage = async (message) => {
+  try {
+    const response = await fetch(`${url}/message/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(message),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const readMessages = async () => {
+  try {
+    const response = await fetch(`${url}/message/`, {
       credentials: "include",
     });
     return await response.json();

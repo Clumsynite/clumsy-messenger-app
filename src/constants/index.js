@@ -3,4 +3,4 @@ export const REFRESH_USERLIST = "REFRESH_USERLIST";
 export const SET_USER = "SET_USER";
 export const SET_ACTIVE_USER_ID = "SET_ACTIVE_USER_ID";
 export const SET_TYPING_VALUE = "SET_TYPING_VALUE";
-export const SEND_MESSAGE = "SEND_MESSAGE";
+export const SET_MESSAGES = "SET_MESSAGES";

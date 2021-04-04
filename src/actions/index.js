@@ -4,7 +4,7 @@ import {
   SET_USER,
   SET_ACTIVE_USER_ID,
   SET_TYPING_VALUE,
-  SEND_MESSAGE,
+  SET_MESSAGES,
 } from "../constants";
 
 export const setAuthenticated = () => ({
@@ -32,7 +32,7 @@ export const setTypingValue = (value) => ({
   payload: value,
 });
 
-export const sendMessage = (message, userId) => ({
-  type: SEND_MESSAGE,
-  payload: { message, userId },
+export const setMessages = (messages) => ({
+  type: SET_MESSAGES,
+  payload: messages,
 });
