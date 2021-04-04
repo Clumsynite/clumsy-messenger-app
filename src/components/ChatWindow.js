@@ -9,8 +9,7 @@ import store from "../store";
 import "./ChatWindow.css";
 
 import { readMessages } from "../api";
-// import { setMessages } from "../actions";
-// import user from "../reducers/messages";
+import { socket } from "../containers/App";
 
 const ChatWindow = ({ activeUserId }) => {
   const state = store.getState();
@@ -18,6 +17,7 @@ const ChatWindow = ({ activeUserId }) => {
   const [messages, setMessages] = useState([]);
 
   const activeUser = _.filter(userList, (user) => user._id === activeUserId)[0];
+
   useEffect(() => {
     const getMessages = async () => {
       try {
@@ -35,6 +35,31 @@ const ChatWindow = ({ activeUserId }) => {
       }
     };
     getMessages();
+
+    return setMessages([]);
+    // eslint-disable-next-line
+  }, [activeUserId]);
+
+  useEffect(() => {
+    socket.on("refreshMessages", () => {
+      const getMessages = async () => {
+        try {
+          const data = await readMessages();
+          const messageList = _.filter(
+            data.messages,
+            (obj) => obj.from === activeUser._id || obj.to === activeUser._id
+          );
+          messageList.map(
+            (message) => (message.is_user_msg = message.from === user._id)
+          );
+          if (messages.length !== messageList) setMessages(messageList);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      getMessages();
+    });
 
     return setMessages([]);
     // eslint-disable-next-line

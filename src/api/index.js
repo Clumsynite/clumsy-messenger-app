@@ -1,7 +1,7 @@
 // Test
-const url = "http://localhost:5000";
+export const url = "http://localhost:5000";
 // Deploy
-// const url = "https://clumsy-messenger.herokuapp.com";
+// export const url = "https://clumsy-messenger.herokuapp.com";
 
 export const ping = async () => {
   try {

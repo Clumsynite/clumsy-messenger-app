@@ -22,7 +22,8 @@
     "react-scripts": "4.0.3",
     "react-toast-notifications": "^2.4.3",
     "redux": "^4.0.5",
-    "rodal": "^1.8.1"
+    "rodal": "^1.8.1",
+    "socket.io-client": "^4.0.1"
   },
   "eslintConfig": {
     "extends": [
