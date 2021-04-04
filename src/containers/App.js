@@ -4,7 +4,8 @@ import _ from "lodash";
 import io from "socket.io-client";
 
 import store from "../store";
-import { refreshUserList } from "../actions";
+import { refreshUserList, setAuthenticated, setUser } from "../actions";
+
 import { ping, otherUsers, url } from "../api";
 
 import UserForm from "./UserForm";
@@ -21,6 +22,16 @@ const App = () => {
 
   useEffect(() => {
     socket.emit("connect user", user._id);
+    const cookieName = "auth";
+    document.cookie = cookieName + "=123";
+    if (document.cookie.indexOf(cookieName + "=") === -1) {
+      return true;
+    } else {
+      localStorage.clear();
+      store.dispatch(setAuthenticated());
+      store.dispatch(setUser());
+      return false;
+    }
     // eslint-disable-next-line
   }, []);
 
