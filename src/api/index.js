@@ -1,7 +1,7 @@
 // Test
-export const url = "http://localhost:5000";
+// export const url = "http://localhost:5000";
 // Deploy
-// export const url = "https://clumsy-messenger.herokuapp.com";
+export const url = "https://clumsy-messenger.herokuapp.com";
 
 export const ping = async () => {
   try {
@@ -137,5 +137,18 @@ export const readMessages = async () => {
     return await response.json();
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const deleteMessage = async (id) => {
+  try {
+    const response = await fetch(`${url}/message/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
   }
 };

@@ -28,11 +28,7 @@ const Chats = ({ messages }) => {
   }, [messages]);
 
   return (
-    <div
-      className="Chats"
-      ref={chatsRef}
-      onClick={() => console.log("MESSAGES", messages)}
-    >
+    <div className="Chats" ref={chatsRef}>
       {messages.map((message) => (
         <Chat chat={message} key={message._id} />
       ))}
